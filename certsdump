@@ -1,0 +1,32 @@
+#!/bin/bash
+
+BKPDIR=/backups
+BKPCERTDIR=${BKPDIR}/certs
+
+
+NOW="$(date +"%Y-%m-%d")"
+
+[ ! -d $BKPCERTDIR ] && mkdir -p $BKPCERTDIR || :
+
+certFiles=( $(grep SSLCertificateFile /etc/apache2/sites-available/* -R | grep -v "dehydrated" | grep -v '#' | awk -FSSLCertificateFile '{print $2}') )
+keyFiles=( $(grep SSLCertificateKeyFile /etc/apache2/sites-available/* -R | grep -v "dehydrated" | grep -v '#' | awk -FSSLCertificateKeyFile '{print $2}') )
+
+backupFiles=("${certFiles[@]}"  "${keyFiles[@]}")
+
+for file in "${backupFiles[@]}"
+do
+	DestFile=${BKPCERTDIR}/$(basename $file)
+	##si le fichier backup destination existe et que le sha1sum est different du certificat en cours de backup, alors on renomme l'ancien
+	if [ -f $DestFile ]; then
+		if [ "$(sha1sum $DestFile | cut -d' ' -f1)" != "$(sha1sum $file | cut -d' ' -f1)" ]; then
+			echo "sha different pour $file! on backup!"
+			mv $DestFile ${DestFile}.$NOW 1>/dev/null
+			cp $file ${DestFile} 1>/dev/null
+		fi
+	else
+		echo "le backup de $file n'existe pas, on le créé"
+		cp $file ${DestFile} 1>/dev/null
+	fi
+
+
+done

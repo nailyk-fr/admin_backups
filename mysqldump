@@ -1,0 +1,68 @@
+#!/bin/bash
+
+source ./mysqlpass.txt
+
+# Linux bin paths, change this if it can not be autodetected via which command
+MYSQL="$(which mysql)"
+MYSQLDUMP="$(which mysqldump)"
+CHOWN="$(which chown)"
+CHMOD="$(which chmod)"
+GZIP="$(which gzip)"
+ 
+# Backup Dest directory, change this if you have someother location
+DEST="/backups/"
+ 
+# Main directory where backup will be stored
+MBD="$DEST/mysql"
+ 
+# Get hostname
+HOST="$(hostname)"
+ 
+# Get data in dd-mm-yyyy format
+NOW="$(date +"%Y-%m-%d")"
+ 
+# File to store current backup file
+FILE=""
+# Store list of databases
+DBS=""
+ 
+[ ! -d $MBD ] && mkdir -p $MBD || :
+ 
+# Only root can access it!
+#$CHOWN 0.0 -R $DEST
+#$CHMOD 0600 $DEST
+ 
+
+# Get all database list first
+DBS="$($MYSQL -u $MyUSER -h $MyHOST -p$MyPASS -Bse 'show databases')"
+ 
+for db in $DBS
+do
+	skipdb=-1
+	if [ "$IGGY" != "" ];
+	then
+		for i in $IGGY
+		do
+			[ "$db" == "$i" ] && skipdb=1 || :
+		done
+	fi
+ 
+	if [ "$skipdb" == "-1" ] ; then
+		FILE="$MBD/$db.$HOST.$NOW.gz"
+		# do all inone job in pipe,
+		# connect to mysql using mysqldump for select mysql database
+		# and pipe it out to gz file in backup dir :)
+		echo sauvegarde des bases $db dans le fichier $FILE
+
+		#on verifie si les arrays user/pwd sont vides. Si oui on utilise le pass par defaut
+		if [ ! -z "${UsersArray[$db]}" ] && [ ! -z "${PasswdArray[$db]}" ]; then
+		    $MYSQLDUMP -u ${UsersArray[$db]} -h $MyHOST -p${PasswdArray[$db]} $db | $GZIP -9 > $FILE 2>&1
+		else
+			echo "  |- pas de mot de passe pour sauvegarder la base $db"
+		    #$MYSQLDUMP -u $MyUSER -h $MyHOST -p$MyPASS $db | $GZIP -9 > $FILE 2>&1
+		fi
+	fi
+done
+
+
+

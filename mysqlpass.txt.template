@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+#fallback user when not found into table
+#this user is also used for database listing
+MyUSER="fallbackUser"
+MyPASS="fallbaskUserPassword"
+MyHOST="localhost"
+
+declare -A UsersArray
+declare -A PasswdArray
+
+# DO NOT BACKUP these databases
+IGGY="test information_schema"
+
+UsersArray[database]="user"
+PasswdArray[database]="password"
+
+UsersArray[database2]="user2"
+PasswdArray[database2]="password2"
+
+#example
+UsersArray[glpi]="glpi"
+PasswdArray[glpi]="@str0ngPâssword"

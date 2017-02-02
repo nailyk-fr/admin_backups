@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+
+if [ "$(df -P -T /backups | tail -n +2 | awk '{print $2}')" != "nfs" ] ; then
+	echo les systeme de fichier n\'était pas monté\! montage\!
+	mount /backups
+fi
+
+if [ "$(df -P -T /backups | tail -n +2 | awk '{print $2}')" != "nfs" ] ; then
+        echo le systeme de fichier n\'est toujours pas monté\! abandon\!\!\!\!\!\!
+	exit 2
+fi
+
+echo --------Debut de sauvegarde--------
+echo ----sauvegarde SQL
+./mysqldump 2>&1
+echo ----sauvegarde des fichiers
+./filesdump 2>&1
+echo ----sauvegarde des certificats
+./certsdump 2>&1
+#echo ----sauvegarde munin
+#/root/munin_bak 2>&1
+echo --------Sauvegarde terminee--------
+
+umount /backups

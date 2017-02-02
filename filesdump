@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+
+## options tar:
+#	z: compression gzip
+#	j: compression bzip2
+#	J: comptession xz
+#	c: crate archive
+#	f: ajouter les fichiers
+
+BKPDIR=/backups/files
+WWWDIR=/var/sites
+
+SiteList=($(find ${WWWDIR} -mindepth 1 -maxdepth 1 -type d | xargs))
+
+#si le dossier dest des backups n'existe pas on le cree
+[ ! -d $BKPDIR ] && mkdir -p $BKPDIR || :
+
+for site in "${SiteList[@]}"
+do
+    tar -Jcf ${BKPDIR}/$(basename $site)-$(date +"%Y-%m-%d").tar.xz -C ${site} . 2>&1
+    echo Fin backup Site ${site}
+done
+
+

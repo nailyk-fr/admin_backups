@@ -12,13 +12,15 @@ if [ "$(df -P -T /backups | tail -n +2 | awk '{print $2}')" != "nfs" ] ; then
 	exit 2
 fi
 
+MY_DIR=$(dirname $0)
+
 echo --------Debut de sauvegarde--------
 echo ----sauvegarde SQL
-./mysqldump 2>&1
+$MY_DIR/mysqldump 2>&1
 echo ----sauvegarde des fichiers
-./filesdump 2>&1
+$MY_DIR/filesdump 2>&1
 echo ----sauvegarde des certificats
-./certsdump 2>&1
+$MY_DIR/certsdump 2>&1
 #echo ----sauvegarde munin
 #/root/munin_bak 2>&1
 echo --------Sauvegarde terminee--------

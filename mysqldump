@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ./mysqlpass.txt
+MY_DIR=$(dirname $0)
+source $MY_DIR/mysqlpass.txt
 
 # Linux bin paths, change this if it can not be autodetected via which command
 MYSQL="$(which mysql)"

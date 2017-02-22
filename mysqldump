@@ -60,7 +60,7 @@ do
 		    $MYSQLDUMP -u ${UsersArray[$db]} -h $MyHOST -p${PasswdArray[$db]} $db | $GZIP -9 > $FILE 2>&1
 		else
 			echo "  |- pas de mot de passe pour sauvegarder la base $db"
-		    #$MYSQLDUMP -u $MyUSER -h $MyHOST -p$MyPASS $db | $GZIP -9 > $FILE 2>&1
+		    $MYSQLDUMP -u $MyUSER -h $MyHOST -p$MyPASS $db | $GZIP -9 > $FILE 2>&1
 		fi
 	fi
 done

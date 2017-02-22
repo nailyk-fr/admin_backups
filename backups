@@ -25,4 +25,10 @@ $MY_DIR/certsdump 2>&1
 #/root/munin_bak 2>&1
 echo --------Sauvegarde terminee--------
 
+echo
+
+echo ----------  Nettoyage   -----------
+find /backups -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
+echo --------- Fin nettoyage -----------
+
 umount /backups

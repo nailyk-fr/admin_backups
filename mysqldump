@@ -53,14 +53,19 @@ do
 		# do all inone job in pipe,
 		# connect to mysql using mysqldump for select mysql database
 		# and pipe it out to gz file in backup dir :)
-		echo sauvegarde des bases $db dans le fichier $FILE
+		echo " |- sauvegarde des bases $db dans le fichier $FILE"
 
 		#on verifie si les arrays user/pwd sont vides. Si oui on utilise le pass par defaut
 		if [ ! -z "${UsersArray[$db]}" ] && [ ! -z "${PasswdArray[$db]}" ]; then
 		    $MYSQLDUMP -u ${UsersArray[$db]} -h $MyHOST -p${PasswdArray[$db]} $db | $GZIP -9 > $FILE 2>&1
 		else
-			echo "  |- pas de mot de passe pour sauvegarder la base $db"
+			echo "  |- pas de mot de passe pour sauvegarder la base $db, on tente avec l'utilisateur par defaut: "
 		    $MYSQLDUMP -u $MyUSER -h $MyHOST -p$MyPASS $db | $GZIP -9 > $FILE 2>&1
+			if [ $? -eq 0 ]; then
+			    echo "   |- Réussi!"
+			else
+			    echo "   |- Echoué!"
+			fi
 		fi
 	fi
 done

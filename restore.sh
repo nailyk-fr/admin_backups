@@ -21,7 +21,7 @@ DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure/ /data/data/org.
 
 for app in "${DIR[@]}" ; do
 
-		if [ ! -f ${app} ]; then
+		if [ ! -d ${app} ]; then
 			echo "App ${app} not found!!"
 			echo "Giving up on it!"
 			continue

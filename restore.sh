@@ -4,9 +4,13 @@
 # tar cjf /tmp/backup.tar.gz /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure/ /data/data/org.mozilla.fennec_fdroid /data/data/org.schabi.newpipe /data/data/com.github.dfa.diaspora_android /data/data/com.owncloud.android /data/data/im.vector.alpha /data/data/name.boyle.chris.sgtpuzzles
 
 BKP_FILE=$1
+TRGT_APP=$2
 
 if [ -z "${BKP_FILE}" ]; then
         echo "You NEED to provide a backup file ;)"
+		echo "Usage: "
+		echo "       $0 \<backupfile.tar.gz\> \[path to restore\]"
+		echo .
         exit 1
 fi
 
@@ -15,9 +19,12 @@ if [ ! -f ${BKP_FILE} ]; then
         exit 2
 fi
 
-
-#DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure )
-DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure/ /data/data/org.mozilla.fennec_fdroid /data/data/org.schabi.newpipe /data/data/com.github.dfa.diaspora_android /data/data/com.owncloud.android /data/data/im.vector.alpha /data/data/name.boyle.chris.sgtpuzzles )
+if [ -z "${TRGT_APP}" ]; then
+	echo "Target app (2nd arg) not provided. Using default app list"
+	DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure/ /data/data/org.mozilla.fennec_fdroid /data/data/org.schabi.newpipe /data/data/com.github.dfa.diaspora_android /data/data/com.owncloud.android /data/data/im.vector.alpha /data/data/name.boyle.chris.sgtpuzzles )
+else
+	DIR=${TRGT_APP}
+fi
 
 for app in "${DIR[@]}" ; do
 

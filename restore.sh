@@ -43,11 +43,11 @@ for app in "${DIR[@]}" ; do
         tar xvf ${BKP_FILE} ${TAR_DIR}
         STATUS=$?
 
-    if [ ${STATUS} -ne 0 ]; then
-        echo "error $STATUS while extracting data!" >&2
-                echo "........... giving up on ${app}! ..........."
-                continue
-        fi
+		if [ ${STATUS} -ne 0 ]; then
+			echo "error $STATUS while extracting data!" >&2
+			echo "........... giving up on ${app}! ..........."
+			continue
+		fi
 
 
         echo "restoring owner chip!"

@@ -59,7 +59,7 @@ for app in "${DIR[@]}" ; do
 		fi
 
         echo "restoring selinux context!"
-        restorecon -Rnv ${app}
+        restorecon -Rv ${app}
 		STATUS=$?
 		if [ ${STATUS} -ne 0 ]; then
 			echo "error $STATUS while restor SElinux context!" >&2

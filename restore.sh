@@ -49,12 +49,24 @@ for app in "${DIR[@]}" ; do
 			continue
 		fi
 
-
         echo "restoring owner chip!"
         chown -RPv ${USER}:${GROUP} ${app}
+		STATUS=$?
+		if [ ${STATUS} -ne 0 ]; then
+			echo "error $STATUS while changing ownerchip!" >&2
+			echo "........... giving up on ${app}! ..........."
+			continue
+		fi
 
         echo "restoring selinux context!"
         restorecon -Rnv ${app}
+		STATUS=$?
+		if [ ${STATUS} -ne 0 ]; then
+			echo "error $STATUS while restor SElinux context!" >&2
+			echo "........... giving up on ${app}! ..........."
+			continue
+		fi
+
 
         echo "------- ${app} over! -------"
 done

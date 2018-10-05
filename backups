@@ -31,7 +31,7 @@ echo ----------  Nettoyage   -----------
 find ${BKP_FOLDER} -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
 echo --------- Fin nettoyage -----------
 
-if ! mountpoint ${BKP_FOLDER} ; then
+if mountpoint ${BKP_FOLDER} ; then
         umount ${BKP_FOLDER}
 	return 0
 else

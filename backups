@@ -2,12 +2,12 @@
 
 
 
-if [ "$(df -P -T /backups | tail -n +2 | awk '{print $2}')" != "nfs" ] ; then
+if ! mountpoint /backups ; then
 	echo les systeme de fichier n\'était pas monté\! montage\!
 	mount /backups
 fi
 
-if [ "$(df -P -T /backups | tail -n +2 | awk '{print $2}')" != "nfs" ] ; then
+if ! mountpoint /backups ; then
         echo le systeme de fichier n\'est toujours pas monté\! abandon\!\!\!\!\!\!
 	exit 2
 fi
@@ -31,4 +31,10 @@ echo ----------  Nettoyage   -----------
 find /backups -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
 echo --------- Fin nettoyage -----------
 
-umount /backups
+if ! mountpoint /backups ; then
+        umount /backups
+	return 0
+else
+	echo "Mount point was not mounted..."
+	return 1
+fi

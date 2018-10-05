@@ -1,14 +1,14 @@
 #!/bin/bash
 
+BKP_FOLDER=/backups
 
-
-if ! mountpoint /backups ; then
-	echo les systeme de fichier n\'était pas monté\! montage\!
-	mount /backups
+if ! mountpoint ${BKP_FOLDER} ; then
+	echo les systeme de fichier ${BKP_FOLDER} n\'était pas monté\! montage\!
+	mount ${BKP_FOLDER}
 fi
 
-if ! mountpoint /backups ; then
-        echo le systeme de fichier n\'est toujours pas monté\! abandon\!\!\!\!\!\!
+if ! mountpoint ${BKP_FOLDER} ; then
+        echo le systeme de fichier ${BKP_FOLDER} n\'est toujours pas monté\! abandon\!\!\!\!\!\!
 	exit 2
 fi
 
@@ -28,13 +28,13 @@ echo --------Sauvegarde terminee--------
 echo
 
 echo ----------  Nettoyage   -----------
-find /backups -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
+find ${BKP_FOLDER} -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
 echo --------- Fin nettoyage -----------
 
-if ! mountpoint /backups ; then
-        umount /backups
+if ! mountpoint ${BKP_FOLDER} ; then
+        umount ${BKP_FOLDER}
 	return 0
 else
-	echo "Mount point was not mounted..."
+	echo "Mount point ${BKP_FOLDER} was not mounted..."
 	return 1
 fi

@@ -41,7 +41,8 @@ for app in "${DIR[@]}" ; do
         echo " "
         echo "------- Gonna restore datas for ${USER}:${GROUP} on ${app}!"
 
-        read -p "Press enter to continue"
+	echo "Press enter to continue"
+        read
 
         # Tar do not keep first slash. Remove it from folder name
         TAR_DIR=$(echo ${app}| sed "s,^/,,")

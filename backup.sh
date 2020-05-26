@@ -14,7 +14,8 @@ for app in /data/data/com.fsck.k9 \
   /data/data/com.bil.android \
   /data/data/com.samsung.android.app.watchmanager \
   /data/data/com.nextcloud.client \
-  /data/data/org.telegram.messenger
+  /data/data/org.telegram.messenger \
+  /data/data/de.arnowelzel.android.periodical
 do
 if [[ -d ${app} ]]
 then

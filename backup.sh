@@ -19,6 +19,7 @@ for app in /data/data/com.fsck.k9 \
 do
 if [[ -d ${app} ]]
 then
+  echo "Backup up ${app}... "
   tar cjf /sdcard/backup_$(basename ${app})_$(date +"%Y-%m-%d").tar.gz ${app}
 else
   echo "WARNING ! ${app} not found ! "

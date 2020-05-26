@@ -21,7 +21,7 @@ fi
 
 if [ -z "${TRGT_APP}" ]; then
 	echo "Target app (2nd arg) not provided. Using default app list"
-	DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure/ /data/data/org.mozilla.fennec_fdroid /data/data/org.schabi.newpipe /data/data/com.github.dfa.diaspora_android /data/data/com.owncloud.android /data/data/im.vector.alpha /data/data/name.boyle.chris.sgtpuzzles )
+	DIR=( /data/data/com.fsck.k9 /data/data/org.smssecure.smssecure /data/data/org.mozilla.fennec_fdroid /data/data/org.schabi.newpipe /data/data/com.github.dfa.diaspora_android /data/data/com.owncloud.android /data/data/im.vector.alpha /data/data/name.boyle.chris.sgtpuzzles /data/data/com.bil.android /data/data/com.samsung.android.app.watchmanager /data/data/com.nextcloud.client /data/data/org.telegram.messenger /data/data/de.arnowelzel.android.periodical )
 else
 	DIR=${TRGT_APP}
 fi

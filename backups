@@ -8,7 +8,7 @@ if ! mountpoint ${BKP_FOLDER} ; then
 fi
 
 if ! mountpoint ${BKP_FOLDER} ; then
-        echo le systeme de fichier ${BKP_FOLDER} n\'est toujours pas monté\! abandon\!\!\!\!\!\!
+	echo le systeme de fichier ${BKP_FOLDER} n\'est toujours pas monté\! abandon\!\!\!\!\!\!
 	exit 2
 fi
 
@@ -23,16 +23,11 @@ echo ----sauvegarde des fichiers
 #[ -x $MY_DIR/munin_bak ] && $MY_DIR/munin_bak 2>&1 || echo "$MY_DIR/munin_bak does not exist. Skipping..."
 echo --------Sauvegarde terminee--------
 
-echo
-
 echo ----------  Nettoyage   -----------
-find ${BKP_FOLDER} -depth -xdev -maxdepth 2 -type f -mtime +15 -not -path "*cert*" -delete
+find ${BKP_FOLDER} -depth -xdev -maxdepth 2 -type f -mtime +15 -delete
 echo --------- Fin nettoyage -----------
 
-if mountpoint ${BKP_FOLDER} ; then
-        umount ${BKP_FOLDER}
-	return 0
-else
-	echo "Mount point ${BKP_FOLDER} was not mounted..."
-	return 1
+
+if mountpoint /backups ; then
+        umount /backups
 fi

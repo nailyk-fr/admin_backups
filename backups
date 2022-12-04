@@ -19,8 +19,6 @@ echo ----sauvegarde SQL
 $MY_DIR/mysqldump 2>&1
 echo ----sauvegarde des fichiers
 $MY_DIR/filesdump 2>&1
-echo ----sauvegarde des certificats
-$MY_DIR/certsdump 2>&1
 #echo ----sauvegarde munin
 #/root/munin_bak 2>&1
 echo --------Sauvegarde terminee--------

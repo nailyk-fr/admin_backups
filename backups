@@ -16,11 +16,11 @@ MY_DIR=$(dirname $0)
 
 echo --------Debut de sauvegarde--------
 echo ----sauvegarde SQL
-$MY_DIR/mysqldump 2>&1
+[ -x $MY_DIR/mysqldump ] && $MY_DIR/mysqldump 2>&1 || echo "$MY_DIR/mysqldump does not exist. Skipping..."
 echo ----sauvegarde des fichiers
-$MY_DIR/filesdump 2>&1
+[ -x $MY_DIR/filesdump ] && $MY_DIR/filesdump 2>&1 || echo "$MY_DIR/filesdump does not exist. Skipping..."
 #echo ----sauvegarde munin
-#/root/munin_bak 2>&1
+#[ -x $MY_DIR/munin_bak ] && $MY_DIR/munin_bak 2>&1 || echo "$MY_DIR/munin_bak does not exist. Skipping..."
 echo --------Sauvegarde terminee--------
 
 echo

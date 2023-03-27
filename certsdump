@@ -4,7 +4,7 @@ BKPDIR=/backups
 BKPCERTDIR=${BKPDIR}/certs
 
 
-NOW="$(date +"%Y-%m-%d")"
+NOW="$(date +"%Y-%m-%d_%H%M%S")"
 
 [ ! -d $BKPCERTDIR ] && mkdir -p $BKPCERTDIR || :
 

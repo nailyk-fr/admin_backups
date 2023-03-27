@@ -19,7 +19,7 @@ SiteList=($(find ${WWWDIR} -mindepth 1 -maxdepth 1 -type d | xargs))
 
 for site in "${SiteList[@]}"
 do
-    tar -Jcf ${BKPDIR}/$(basename $site)-$(date +"%Y-%m-%d").tar.xz -C ${site} . 2>&1
+    tar -Jcf ${BKPDIR}/$(basename $site)-$(date +"%Y-%m-%d_%H%M%S").tar.xz -C ${site} . 2>&1
     echo Fin backup Site ${site}
 done
 

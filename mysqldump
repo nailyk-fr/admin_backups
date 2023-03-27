@@ -20,7 +20,7 @@ MBD="$DEST/mysql"
 HOST="$(hostname)"
  
 # Get data in dd-mm-yyyy format
-NOW="$(date +"%Y-%m-%d")"
+NOW="$(date +"%Y-%m-%d_%H%M%S")"
  
 # File to store current backup file
 FILE=""

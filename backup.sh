@@ -7,7 +7,7 @@ for app in /data/data/com.fsck.k9 \
   /data/data/org.smssecure.smssecure \
   /data/data/org.mozilla.fennec_fdroid \
   /data/data/org.schabi.newpipe \
-  /data/data/im.vector.alpha \
+  /data/data/im.vector.app \
   /data/data/name.boyle.chris.sgtpuzzles \
   /data/data/de.arnowelzel.android.periodical \
   /data/data/org.liberty.android.freeotpplus \

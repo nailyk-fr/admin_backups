@@ -9,7 +9,6 @@ for app in /data/data/com.fsck.k9 \
   /data/data/org.schabi.newpipe \
   /data/data/im.vector.alpha \
   /data/data/name.boyle.chris.sgtpuzzles \
-  /data/data/com.bil.android \
   /data/data/de.arnowelzel.android.periodical \
   /data/data/org.liberty.android.freeotpplus \
   /data/data/com.android.deskclock \
@@ -18,8 +17,7 @@ for app in /data/data/com.fsck.k9 \
   /data/data/org.schabi.newpipe \
   /data/data/org.openhab.habdroid \
   /data/data/lacaveauxenigmes.game.com \
-  /data/data/dev.ukanth.ufirewall \
-  /data/data/lu.post.finance.mobile.eboo
+  /data/data/dev.ukanth.ufirewall
 do
 if [[ -d ${app} ]]
 then
